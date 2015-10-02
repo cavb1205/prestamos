@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block titulo %}Usuarios registrados{% endblock %}
+
+{% block encabezado %}
+	<h1>Usuarios</h1>
+{% endblock %}
+
+{% block contenido %}
+<ul>
+	{% for dato in usuarios %}
+	<li>{{dato.primer_nombre|capfirst}} - <em>{{dato.primer_apellido}}</em></li>
+	{% empty %}
+		<li>No hay usuarios registrados en el momento.</li>
+	{% endfor %}
+
+</ul>
+{% endblock %}

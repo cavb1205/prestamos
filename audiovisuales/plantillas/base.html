@@ -1,0 +1,27 @@
+<!DOCTYPE <!DOCTYPE html>
+<html lang="es">
+<head>
+	<meta charset='utf-8'>
+	<title>Sistema de prestamos audiovisuales - {% block titulo %}{% endblock %}</title>
+	<style> {% block style_css %}{% endblock %}</style>
+</head>
+<body>
+	<header>
+		{% block encabezado %}{% endblock %}
+		<nav>
+			<ul>
+				<li><a href="/">Inicio</a></li>
+				<li><a href="/usuarios">Usuarios</a></li>
+				<li><a href="/prestamos">Prestamos</a></li>
+				<li><a href="/equipos">Equipos</a></li>
+				<li><a href="/multas">Multas</a></li>
+			</ul>
+		</nav>
+
+	</header>
+	<section class='contenido'>{% block contenido %}{% endblock %}</section>
+	<footer>
+		<p>Sistema de prestamos equipos audiovisuales Universidad Cooperativa de Colombia sede Ibagué &copy;2015</p>
+	</footer>
+</body>
+</html>
