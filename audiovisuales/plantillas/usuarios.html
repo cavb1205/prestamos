@@ -6,6 +6,7 @@
 {% endblock %}
 
 {% block contenido %}
+<a href="/nueva_persona">Agregar persona</a>
 <ul>
 	{% for dato in usuarios %}
 	<li>{{dato.primer_nombre|capfirst}} - <em>{{dato.primer_apellido}}</em></li>

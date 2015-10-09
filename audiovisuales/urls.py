@@ -19,6 +19,7 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^usuarios/','prestamos.views.usuarios'),
-    url(r'^equipos/','prestamos.views.equipos'),
+    url(r'^usuarios/$','prestamos.views.usuarios'),
+    url(r'^equipos/$','prestamos.views.equipos'),
+    url(r'^nueva_persona/$','prestamos.views.nueva_persona'),
 ]
