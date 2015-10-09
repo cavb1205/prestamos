@@ -21,5 +21,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^usuarios/$','prestamos.views.usuarios'),
     url(r'^equipos/$','prestamos.views.equipos'),
-    url(r'^nueva_persona/$','prestamos.views.nueva_persona'),
+    url(r'^add_persona/$','prestamos.views.add_persona'),
+    url(r'^add_equipo/$','prestamos.views.add_equipo'),
 ]
