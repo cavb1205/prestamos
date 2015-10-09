@@ -19,8 +19,11 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^$','prestamos.views.inicio'),
     url(r'^usuarios/$','prestamos.views.usuarios'),
     url(r'^equipos/$','prestamos.views.equipos'),
     url(r'^add_persona/$','prestamos.views.add_persona'),
     url(r'^add_equipo/$','prestamos.views.add_equipo'),
+    url(r'^prestamos/$','prestamos.views.prestamos'),
+    url(r'^add_prestamo/$','prestamos.views.add_prestamo'),
 ]

@@ -21,8 +21,8 @@ class Rol(models.Model):
 
 
 class Persona(models.Model):
-	codigo = models.IntegerField()
-	documento = models.IntegerField()
+	codigo = models.IntegerField(null=True, blank=True, unique=True)
+	documento = models.IntegerField(unique=True)
 	primer_nombre = models.CharField(max_length=30)
 	segundo_nombre = models.CharField(max_length=30, blank=True, null=True)
 	primer_apellido = models.CharField(max_length=30)
@@ -34,7 +34,7 @@ class Persona(models.Model):
 	estado = models.BooleanField(default=True)
 
 	def __unicode__(self):
-		mostrar="%s - %s - %s - %s"%(self.codigo,self.primer_nombre,self.primer_apellido, self.rol_id)
+		mostrar="%s - %s - %s - %s"%(self.documento,self.primer_nombre,self.primer_apellido, self.rol_id)
 		return mostrar
 
 
@@ -62,9 +62,9 @@ class Equipos(models.Model):
 	descripcion = models.TextField(max_length=50)
 	marca = models.CharField(max_length=30)
 	modelo = models.CharField(max_length=30)
-	serial = models.CharField(max_length=30)
+	serial = models.CharField(max_length=30, unique=True)
 	estado_equipo = models.ForeignKey(Estado_Equipo)
-	fecha_compra = models.DateField(auto_now=False)
+	fecha_compra = models.DateField(null=True, blank=True, auto_now=False)
 
 	def __unicode__(self):
 		mostrar  = "%s "%(self.nombre)
@@ -76,20 +76,16 @@ class Prestamo(models.Model):
 	id_persona = models.ForeignKey(Persona)
 	fecha_solicitud = models.DateTimeField(auto_now_add = True)
 	fecha_prestamo = models.DateTimeField(auto_now_add = False)
-	fecha_entrega = models.DateTimeField(auto_now_add = False)
+	fecha_entrega = models.DateTimeField(null=True,blank=True, auto_now_add = False)
+	equipos = models.ManyToManyField(Equipos)
+
+
 
 	def __unicode__(self):
 		mostrar = "%s - %s - %s "%(self.fecha_solicitud, self.fecha_prestamo, self.fecha_entrega)
 		return mostrar
 
 
-class Det_Prestamo(models.Model):
-	id_prestamo = models.ForeignKey(Prestamo)
-	id_equipos = models.ForeignKey(Equipos)
-
-	def __unicode__(self):
-		mostrar = "%s - %s "%(self.id_prestamo, self.id_equipos)
-		return mostrar
 
 
 
