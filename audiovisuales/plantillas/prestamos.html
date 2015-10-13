@@ -9,7 +9,7 @@
 <a href="/add_prestamo">Agregar prestamo</a>
 <ul>
 	{% for dato in prestamos %}
-	<li>{{dato.id_persona}} - <em>{{dato.fecha_prestamo}}</em> - <em>{{dato.fecha_entrega}}</em> 
+	<a href="/"><li>{{dato.id_persona}} - <em>{{dato.equipos}}</em> - <em>{{dato.fecha_prestamo}}</em> - <em>{{dato.fecha_entrega}}</em> </a>
 	{% empty %}
 		<li>No hay prestamos activos.</li>
 	{% endfor %}

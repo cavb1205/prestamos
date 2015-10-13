@@ -1,5 +1,5 @@
 from django.shortcuts import render_to_response, get_object_or_404
-from prestamos.models import Persona, Equipos, Prestamo, Rol
+from prestamos.models import Persona, Equipos, Prestamo, Rol, Estado_Equipo
 from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
@@ -18,6 +18,7 @@ def usuarios(request):
 
 def equipos(request):
 	equipos = Equipos.objects.all()
+	#equipos = Equipos.objects.filter(estado_equipo='1')
 	return render_to_response('equipos.html',{'equipos':equipos})
 
 def prestamos(request):
@@ -49,9 +50,11 @@ def add_equipo(request):
 	return render_to_response('equiposform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
 def add_prestamo(request):
+	
 	if request.method=='POST':
 		formulario = PrestamoForm(request.POST)
 		if formulario.is_valid():
+			
 			formulario.save()
 			return HttpResponseRedirect('/prestamos')
 	else:

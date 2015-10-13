@@ -13,6 +13,16 @@ class EquiposForm(forms.ModelForm):
 		fields = '__all__'
 
 class PrestamoForm(forms.ModelForm):
-	class Meta:
-		model = Prestamo
-		fields = '__all__'
+  	equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'))
+  	class Meta:
+  		model = Prestamo
+  		fields = '__all__'
+
+  	#id_persona = forms.ModelChoiceField(Persona.objects.all())
+  	#fecha_prestamo = forms.DateTimeField()
+  	#fecha_entrega = forms.DateTimeField()
+  	#equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'))
+
+
+
+	
