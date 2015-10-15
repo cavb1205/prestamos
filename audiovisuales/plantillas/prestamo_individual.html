@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+
+<h1>Prestamo No. {{prestamo.id}}</h1><br>
+<p>Persona responsable: {{prestamo.id_persona}}</p>
+<p>Fecha Solicitud: {{prestamo.fecha_solicitud}}</p>
+<p>Fecha del servicio: {{prestamo.fecha_prestamo}}</p>
+<p>Fecha de entrega: {{prestamo.fecha_entrega}}</p>
+<p>Equipos:</p>
+
+
+
+
+
+
+<a href="/prestamos">Regresar a la lista</a>
+
+
+{% endblock %}

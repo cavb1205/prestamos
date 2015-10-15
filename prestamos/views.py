@@ -18,13 +18,18 @@ def usuarios(request):
 
 def equipos(request):
 	equipos = Equipos.objects.all()
-	#equipos = Equipos.objects.filter(estado_equipo='1')
+	
 	return render_to_response('equipos.html',{'equipos':equipos})
 
 def prestamos(request):
 	prestamos = Prestamo.objects.all()
 	return render_to_response('prestamos.html',{'prestamos':prestamos})
 
+def prestamo_individual(request,id_prestamo):
+	prestamo = Prestamo.objects.get(id=id_prestamo)
+	equipos = Equipos.objects.all()
+	return render_to_response('prestamo_individual.html',{'prestamo':prestamo})
+	
 
 
 #vistas para formularios
@@ -54,9 +59,10 @@ def add_prestamo(request):
 	if request.method=='POST':
 		formulario = PrestamoForm(request.POST)
 		if formulario.is_valid():
-			
 			formulario.save()
+
 			return HttpResponseRedirect('/prestamos')
+
 	else:
 		formulario = PrestamoForm()
 	return render_to_response('prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))
