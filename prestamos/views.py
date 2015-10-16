@@ -16,10 +16,21 @@ def usuarios(request):
 	usuarios = Persona.objects.all()
 	return render_to_response('usuarios.html',{'usuarios':usuarios})
 
+def persona_individual(request,id_persona):
+	persona = Persona.objects.get(id=id_persona)
+	return render_to_response('persona_individual.html',{'persona':persona})
+
+
+
 def equipos(request):
 	equipos = Equipos.objects.all()
-	
 	return render_to_response('equipos.html',{'equipos':equipos})
+
+def equipo_individual(request,id_equipo):
+	equipo = Equipos.objects.get(id=id_equipo)
+	return render_to_response('equipo_individual.html',{'equipo':equipo})
+
+
 
 def prestamos(request):
 	prestamos = Prestamo.objects.all()

@@ -9,7 +9,7 @@
 <a href="/add_persona">Agregar persona</a>
 <ul>
 	{% for dato in usuarios %}
-	<li>{{dato.primer_nombre|capfirst}} - <em>{{dato.primer_apellido}}</em></li>
+	<a href="/usuarios/{{dato.id}}/"><li>{{dato.primer_nombre|capfirst}} - <em>{{dato.primer_apellido}}</em></li></a>
 	{% empty %}
 		<li>No hay usuarios registrados en el momento.</li>
 	{% endfor %}

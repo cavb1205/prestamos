@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+
+<h1>Documento: {{persona.documento}}</h1>
+<p>Código: {{persona.codigo}}</p>
+<p>Nombres: {{persona.primer_nombre}} {{persona.segundo_nombre}}</p>
+<p>Apellidos: {{persona.primer_apellido}}{{persona.segundo_apellido}}</p>
+<p>Email: {{persona.email}}</p>
+<p>Celular: {{persona.celular}}</p>
+<p>Programa: {{persona.programa}}</p>
+<p>Rol: {{persona.rol_id}}</p>
+<p>Estado de la persona: {{persona.estado}}</p>
+
+
+
+<a href="/usuarios">Regresar a la lista</a>
+
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+
+<h1>Equipo No. {{equipo.id}}</h1><br>
+<p>Nombre Equipo: {{equipo.nombre}}</p>
+<p>Tipo: {{equipo.tipo_equipo}}</p>
+<p>Descripcion: {{equipo.descripcion}}</p>
+<p>Marca: {{equipo.marca}}</p>
+<p>Modelo: {{equipo.modelo}}</p>
+<p>Serial: {{equipo.serial}}</p>
+<p>Estado: {{equipo.estado_equipo}}</p>
+<p>Fecha Compra: {{equipo.fecha_compra}}</p>
+
+
+
+<a href="/equipos">Regresar a la lista</a>
+
+
+{% endblock %}
