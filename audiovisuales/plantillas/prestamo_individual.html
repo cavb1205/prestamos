@@ -10,8 +10,8 @@
 <p>Fecha del servicio: {{prestamo.fecha_prestamo}}</p>
 <p>Fecha de entrega: {{prestamo.fecha_entrega}}</p>
 <p>Equipos:</p>
-{% for equipo in prestamo.equipos_set.all %}
-	<li>{{equipo.id}}</li>
+{% for equipo in prestamo.equipos.all %}
+	<li>{{equipo.nombre}}</li>
 {% endfor %}
 
 

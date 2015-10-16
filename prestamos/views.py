@@ -38,8 +38,8 @@ def prestamos(request):
 
 def prestamo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
-	equipos = Equipos.objects.all()
-	return render_to_response('prestamo_individual.html',{'prestamo':prestamo})
+	equipos = prestamo.equipos.all()
+	return render_to_response('prestamo_individual.html',{'prestamo':prestamo,'equipos':equipos})
 	
 
 
