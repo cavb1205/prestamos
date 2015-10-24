@@ -13,16 +13,17 @@ class EquiposForm(forms.ModelForm):
 		fields = '__all__'
 
 class PrestamoForm(forms.ModelForm):
-  	equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'))
-  	class Meta:
-  		model = Prestamo
-  		fields = '__all__'
+    
+  class Meta:
+  	model = Prestamo
+  	fields = ('id_persona','fecha_prestamo','fecha_entrega','salon','equipos','estado_prestamo','observaciones')
+  
+  equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'),widget=forms.CheckboxSelectMultiple)
 
-  	#id_persona = forms.ModelChoiceField(Persona.objects.all())
-  	#fecha_prestamo = forms.DateTimeField()
-  	#fecha_entrega = forms.DateTimeField()
-  	#equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'))
-
+   # def estado_equipo(self):
+    #  equipoid=Equipos.objects.all()
+     # prestamoid=Prestamo.objects.all()
+      #if equipoid 
 
 
 	

@@ -26,7 +26,9 @@ urlpatterns = [
     url(r'^equipos/(?P<id_equipo>.*)/$','prestamos.views.equipo_individual'),
     url(r'^add_persona/$','prestamos.views.add_persona'),
     url(r'^add_equipo/$','prestamos.views.add_equipo'),
-    url(r'^prestamos/$','prestamos.views.prestamos'),
+    url(r'^prestamos/$','prestamos.views.prestamos_historial'),
     url(r'^prestamos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_individual'),
+    url(r'^prestamos_activos/$','prestamos.views.prestamos_activos'),
+    url(r'^prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_activo_individual'),
     url(r'^add_prestamo/$','prestamos.views.add_prestamo'),
 ]

@@ -1,5 +1,8 @@
 from django.db import models
-
+from django.dispatch.dispatcher import receiver
+from django.db.models.signals import post_save, m2m_changed
+from django.dispatch.dispatcher import receiver
+from django.db.models.signals import post_save, m2m_changed
 # Create your models here.
 
 
@@ -37,6 +40,12 @@ class Persona(models.Model):
 		mostrar="%s - %s - %s - %s"%(self.documento,self.primer_nombre,self.primer_apellido, self.rol_id)
 		return mostrar
 
+class Salon(models.Model):
+	nombre = models.CharField(max_length=20)
+
+	def __unicode__(self):
+		mostrar = "%s"%(self.nombre)
+		return mostrar
 
 
 class Tipo_Equipo(models.Model):
@@ -77,7 +86,10 @@ class Prestamo(models.Model):
 	fecha_solicitud = models.DateTimeField(auto_now_add = True)
 	fecha_prestamo = models.DateTimeField(auto_now_add = False)
 	fecha_entrega = models.DateTimeField(null=True,blank=True, auto_now_add = False)
+	salon = models.ForeignKey(Salon,null=True,blank=True)
 	equipos = models.ManyToManyField(Equipos)
+	estado_prestamo = models.BooleanField(default=True)
+	observaciones = models.TextField(verbose_name='observaciones sobre el prestamo',null=True, blank=True)
 
 
 
@@ -86,9 +98,12 @@ class Prestamo(models.Model):
 		return mostrar
 
 
-
-
-
-		
+	
+	#@receiver(post_save, sender = Prestamo)
+	#def prestamo_save(sender, instance, **kwargs):
+	#	for equipo in instance.equipos:
+	#		equipo.estado_equipo = '2'
+	#		equipo.save()
+			
 
 

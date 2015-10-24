@@ -2,14 +2,14 @@
 {% block titulo %}Equipos Audiovisuales{% endblock %}
 
 {% block encabezado %}
-	<h1>Prestamos activos</h1>
+	<h1>Historial de Prestamos</h1>
 {% endblock %}
 
 {% block contenido %}
 <a href="/add_prestamo">Agregar prestamo</a>
 <ul>
 	{% for dato in prestamos %}
-	<a href="/prestamos/{{dato.id}}/"><li>{{dato.id_persona}} - <em>{{dato.equipos}}</em> - <em>{{dato.fecha_prestamo}}</em> - <em>{{dato.fecha_entrega}}</em> </a>
+	<a href="/prestamos/{{dato.id}}/"><li><em>{{dato.id}}</em>  ---  <em>{{dato.id_persona}} </em> </a> -  <em>Fecha de prestamo:{{dato.fecha_prestamo}}</em>  -  <em>Fecha de entrega:{{dato.fecha_entrega}}</em> 
 	{% empty %}
 		<li>No hay prestamos activos.</li>
 	{% endfor %}
