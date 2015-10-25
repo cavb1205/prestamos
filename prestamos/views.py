@@ -59,6 +59,23 @@ def add_persona(request):
 	return render_to_response('personaform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
 
+def edit_persona(request,id_persona):
+	persona = Persona.objects.get(id=id_persona)
+	
+	if request.method == 'POST':
+		formulario = PersonaForm(request.POST,instance=persona)
+		if formulario.is_valid():
+			formulario.save()
+			return HttpResponseRedirect('/usuarios/%s/'%persona.id)
+	else:
+		formulario = PersonaForm(instance=persona)
+	
+
+	return render_to_response('edit_personaform.html',{'formulario':formulario},context_instance=RequestContext(request))				
+
+
+
+
 def add_equipo(request):
 	if request.method=='POST':
 		formulario = EquiposForm(request.POST)
@@ -68,6 +85,24 @@ def add_equipo(request):
 	else:
 		formulario = EquiposForm()
 	return render_to_response('equiposform.html',{'formulario':formulario},context_instance=RequestContext(request))
+
+
+def edit_equipo(request,id_equipo):
+	equipo = Equipos.objects.get(id=id_equipo)
+	
+	if request.method == 'POST':
+		formulario = EquiposForm(request.POST,instance=equipo)
+		if formulario.is_valid():
+			formulario.save()
+			return HttpResponseRedirect('/equipos/%s/'%equipo.id)
+	else:
+		formulario = EquiposForm(instance=equipo)
+	
+
+	return render_to_response('edit_equiposform.html',{'formulario':formulario},context_instance=RequestContext(request))				
+
+
+
 
 def add_prestamo(request):
 	
@@ -89,6 +124,20 @@ def add_prestamo(request):
 		for equipo in instance.equipos:
 			equipo.estado_equipo = '2'
 			equipo.save()
-				
-	#post_save.connect(prestamo_save, sender = Prestamo)		
+
+
+def edit_prestamo(request,id_prestamo):
+	prestamo = Prestamo.objects.get(id=id_prestamo)
+	equipos = prestamo.equipos.all()
+	if request.method == 'POST':
+		formulario = PrestamoForm(request.POST,instance=prestamo)
+		if formulario.is_valid():
+			formulario.save()
+			return HttpResponseRedirect('/prestamos_activos/%s/'%prestamo.id)
+	else:
+		formulario = PrestamoForm(instance=prestamo)
+	
+
+	return render_to_response('edit_prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))				
+	
 

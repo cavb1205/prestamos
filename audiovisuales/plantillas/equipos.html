@@ -9,7 +9,7 @@
 <a href="/add_equipo">Agregar equipo</a>
 <ul>
 	{% for dato in equipos %}
-	<a href="/equipos/{{dato.id}}/"><li>{{dato.nombre|capfirst}} - <em>{{dato.marca}}</em> - <em>{{dato.modelo}}</em> - <em>{{dato.serial}}</em></li></a>
+	<a href="/equipos/{{dato.id}}/"><li>{{dato.nombre|capfirst}} - <em>{{dato.marca}}</em> - <em>{{dato.modelo}}</em> - <em>{{dato.serial}}</em></li></a> - <em><a href="/edit/equipos/{{dato.id}}/">Editar</a> </em>
 	{% empty %}
 		<li>No hay equipos registrados.</li>
 	{% endfor %}

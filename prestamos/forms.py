@@ -20,10 +20,6 @@ class PrestamoForm(forms.ModelForm):
   
   equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'),widget=forms.CheckboxSelectMultiple)
 
-   # def estado_equipo(self):
-    #  equipoid=Equipos.objects.all()
-     # prestamoid=Prestamo.objects.all()
-      #if equipoid 
 
 
 	
