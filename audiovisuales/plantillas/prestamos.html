@@ -8,11 +8,32 @@
 {% block contenido %}
 <a href="/add_prestamo">Agregar prestamo</a>
 <ul>
-	{% for dato in prestamos %}
-	<a href="/prestamos/{{dato.id}}/"><li><em>{{dato.id}}</em>  ---  <em>{{dato.id_persona}} </em> </a> -  <em>Fecha de prestamo:{{dato.fecha_prestamo}}</em>  -  <em>Fecha de entrega:{{dato.fecha_entrega}}</em> 
-	{% empty %}
-		<li>No hay prestamos activos.</li>
-	{% endfor %}
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Usuario</th>
+	  				<th>Fecha Préstamo</th>
+	  				<th>Fecha Entrega</th>
 
+	  			</tr>
+	  		</theader>
+    	{% for dato in prestamos %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id}}</td>
+    				<td>{{dato.id_persona}}</td>
+    				<td>{{dato.fecha_prestamo}}</td>
+    				<td>{{dato.fecha_entrega}}</td>
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay prestamos activos.</p>
+		{% endfor %}
+		</table>
+	</div>
+	
 </ul>
 {% endblock %}
