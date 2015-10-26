@@ -6,7 +6,10 @@
 {% endblock %}
 
 {% block contenido %}
-<a href="/add_equipo">Agregar equipo</a>
+<a class="btn btn-default btn-lg" href="/add_equipo"><span class="glyphicon glyphicon-plus-sign"></span> Equipo</a>
+<br>
+<br>
+<br>
 <ul>
 	<div class="table-responsive">
 	  	<table class="table">
@@ -33,6 +36,8 @@
     				<td>{{dato.serial}}</td>
     				<td>{{dato.tipo_equipo}}</td>
     				<td>{{dato.estado_equipo}}</td>
+    				<td><a class="btn btn-default btn-xs" href="/equipos/{{dato.id}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				<td><a class="btn btn-default btn-xs" href="/edit/equipos/{{dato.id}}/"><span class="glyphicon glyphicon-search"></span>Editar</a></td>
     			</tr>
     		</tbody>
 			 

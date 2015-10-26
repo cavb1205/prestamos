@@ -6,7 +6,11 @@
 {% endblock %}
 
 {% block contenido %}
-<a href="/add_prestamo">Agregar prestamo</a>
+
+<a class="btn btn-default btn-lg" href="/add_prestamo"><span class="glyphicon glyphicon-plus-sign"></span> Prestamo</a>
+<br>
+<br>
+<br>
 <ul>
 	<div class="table-responsive">
 	  	<table class="table">
@@ -26,6 +30,8 @@
     				<td>{{dato.id_persona}}</td>
     				<td>{{dato.fecha_prestamo}}</td>
     				<td>{{dato.fecha_entrega}}</td>
+    				<td><a class="btn btn-default btn-xs" href="/prestamos_activos/{{dato.id}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				<td><a class="btn btn-default btn-xs" href="/edit/prestamos_activos/{{dato.id}}/"><span class="glyphicon glyphicon-search"></span>Editar</a></td>
     			</tr>
     		</tbody>
 			 

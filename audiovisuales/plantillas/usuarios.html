@@ -6,7 +6,10 @@
 {% endblock %}
 
 {% block contenido %}
-<a href="/add_persona">Agregar persona</a>
+<a class="btn btn-default btn-lg" href="/add_persona"><span class="glyphicon glyphicon-plus-sign"></span> Persona</a>
+<br>
+<br>
+<br>
 <ul>
 	<div class="table-responsive">
 	  	<table class="table">
@@ -34,6 +37,8 @@
     				<td>{{dato.segundo_apellido|capfirst}}</td>
     				<td>{{dato.rol_id}}</td>
     				<td>{{dato.programa}}</td>
+    				<td><a class="btn btn-default btn-xs" href="/usuarios/{{dato.id}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
+    				<td><a class="btn btn-default btn-xs" href="/edit/persona/{{dato.id}}/"><span class="glyphicon glyphicon-search"></span>Editar</a></td>
     			</tr>
     		</tbody>
 			 
