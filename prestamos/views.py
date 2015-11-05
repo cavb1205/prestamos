@@ -191,13 +191,17 @@ def login_view(request):
 	if request.method == "POST":
 		form = LoginForm(request.POST)
 		if form.is_valid():
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password']
-			usuario = authenticate(username=username,password=password)
-			if usuario:
-				if usuario.is_active:
-					login(request,usuario)
+			username = request.POST['username']
+			password = request.POST['password']
+			user = authenticate(username = username, password = password)
+			if user is not None:
+				if user.is_active:
+					login(request,user)
 					return HttpResponseRedirect('/')
+				else:
+					mensaje = 'El usuario no se encuentra activo en el sistema'
+			else:
+				mensaje = "usuario y/o password incorrecto"
 		else:
 			mensaje = "usuario y/o password incorrecto"
 	else:
@@ -207,4 +211,4 @@ def login_view(request):
 
 def logout_view(request):
 	logout(request)
-	return 	HttpResponseRedirect('/')
+	return 	HttpResponseRedirect('/login')

@@ -41,11 +41,10 @@
 					<li><a href="/prestamos/page/1">Historial Préstamos</a></li>
 					<li><a href="/prestamos_activos/page/1">Préstamos Activos</a></li>
 					<li><a href="/equipos/page/1">Equipos</a></li>
-					{% if user.is_authenticated %}
-						<li><a href="{% url 'vista_logout' %}">Cerrar Sesion</a></li>
-					{% else %}
-						<li><a href="{% url 'vista_login' %}">Login</a></li>
-					{% endif %}
+					<li><a href="/login">Login</a></li>
+					<li><a href="/logout">Logout</a></li>
+					
+					
 					
 				</ul>
 			</div>
