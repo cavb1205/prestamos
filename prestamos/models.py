@@ -1,8 +1,8 @@
 from django.db import models
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save, m2m_changed
-from django.dispatch.dispatcher import receiver
-from django.db.models.signals import post_save, m2m_changed
+
+
 # Create your models here.
 
 
@@ -79,7 +79,7 @@ class Equipos(models.Model):
 		mostrar  = "%s "%(self.nombre)
 		return mostrar
 
-
+BOOL_CHOICES = ((True, 'Activo'),(False, 'Finalizado'))
 
 class Prestamo(models.Model):
 	id_persona = models.ForeignKey(Persona)
@@ -88,7 +88,7 @@ class Prestamo(models.Model):
 	fecha_entrega = models.DateTimeField(null=True,blank=True, auto_now_add = False)
 	salon = models.ForeignKey(Salon,null=True,blank=True)
 	equipos = models.ManyToManyField(Equipos)
-	estado_prestamo = models.BooleanField(default=True)
+	estado_prestamo = models.BooleanField(default=True, choices=BOOL_CHOICES)
 	observaciones = models.TextField(verbose_name='observaciones sobre el prestamo',null=True, blank=True)
 
 
@@ -99,11 +99,6 @@ class Prestamo(models.Model):
 
 
 	
-	#@receiver(post_save, sender = Prestamo)
-	#def prestamo_save(sender, instance, **kwargs):
-	#	for equipo in instance.equipos:
-	#		equipo.estado_equipo = '2'
-	#		equipo.save()
 			
 
 

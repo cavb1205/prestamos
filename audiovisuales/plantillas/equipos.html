@@ -42,10 +42,26 @@
     		</tbody>
 			 
 		{% empty %}
-		<p>No hay prestamos activos.</p>
+		<h2>No hay equipos.</h2>
 		{% endfor %}
 		</table>
 	</div>
-	
+{% if equipos %}
+	<a class="btn btn-default btn-sm" href="/equipos/page/1"> <span class="glyphicon glyphicon-fast-backward"></span></a>
+	{% if equipos.has_previous %}
+		<a class="btn btn-default btn-sm" href="/equipos/page/{{ equipos.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if equipos.has_next %}
+		<a class="btn btn-default btn-sm" href="/equipos/page/{{ equipos.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/equipos/page/{{equipos.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br><br><br>
+	<h4>Página {{ equipos.number }} de {{ equipos.paginator.num_pages }}</h4>
+{% endif %}	
 </ul>
 {% endblock %}

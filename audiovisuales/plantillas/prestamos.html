@@ -29,6 +29,7 @@
     				<td>{{dato.id_persona}}</td>
     				<td>{{dato.fecha_prestamo}}</td>
     				<td>{{dato.fecha_entrega}}</td>
+    				<td><a class="btn btn-default btn-xs" href="/prestamos/{{dato.id}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
     			</tr>
     		</tbody>
 			 
@@ -37,6 +38,23 @@
 		{% endfor %}
 		</table>
 	</div>
+	{% if prestamos %}
+	<a class="btn btn-default btn-sm" href="/prestamos/page/1"> <span class="glyphicon glyphicon-fast-backward"></span> </a>
+	{% if prestamos.has_previous %}
+		<a class="btn btn-default btn-sm" href="/prestamos/page/{{ prestamos.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if prestamos.has_next %}
+		<a class="btn btn-default btn-sm" href="/prestamos/page/{{ prestamos.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/prestamos/page/{{prestamos.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br><br><br>
+	<h4>Página {{ prestamos.number }} de {{ prestamos.paginator.num_pages }}</h4>
+{% endif %}	
 	
 </ul>
 {% endblock %}

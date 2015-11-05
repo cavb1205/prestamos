@@ -19,20 +19,23 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/jsi18n', 'django.views.i18n.javascript_catalog'), 
     url(r'^$','prestamos.views.inicio'),
-    url(r'^usuarios/$','prestamos.views.usuarios'),
+    url(r'^usuarios/page/(?P<pagina>.*)/$','prestamos.views.usuarios'),
     url(r'^usuarios/(?P<id_persona>.*)/$','prestamos.views.persona_individual'),
-    url(r'^equipos/$','prestamos.views.equipos'),
+    url(r'^equipos/page/(?P<pagina>.*)/$','prestamos.views.equipos'),
     url(r'^equipos/(?P<id_equipo>.*)/$','prestamos.views.equipo_individual'),
     url(r'^add_persona/$','prestamos.views.add_persona'),
     url(r'^edit/persona/(?P<id_persona>.*)/$','prestamos.views.edit_persona'),
     url(r'^add_equipo/$','prestamos.views.add_equipo'),
     url(r'^edit/equipos/(?P<id_equipo>.*)/$','prestamos.views.edit_equipo'),
-    url(r'^prestamos/$','prestamos.views.prestamos_historial'),
+    url(r'^prestamos/page/(?P<pagina>.*)/$','prestamos.views.prestamos_historial'),
     url(r'^prestamos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_individual'),
-    url(r'^prestamos_activos/$','prestamos.views.prestamos_activos'),
+    url(r'^prestamos_activos/page/(?P<pagina>.*)/$','prestamos.views.prestamos_activos'),
     url(r'^prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_activo_individual'),
     url(r'^add_prestamo/$','prestamos.views.add_prestamo'),
     url(r'^edit/prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.edit_prestamo'),
+    url(r'^login/$','prestamos.views.login_view', name='vista_login'), 
+    url(r'^logout/$','prestamos.views.logout_view', name='vista_logout'), 
 
 ]

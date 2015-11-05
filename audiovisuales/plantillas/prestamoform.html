@@ -2,6 +2,7 @@
 {% block contenido %}
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
 		{{formulario.as_p}}
+		{{form.media}}
 		<p><input type='submit' value='Confirmar'/></p>
 	</form>
 {% endblock %}

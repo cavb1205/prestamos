@@ -40,6 +40,23 @@
 		{% endfor %}
 		</table>
 	</div>
-	
+	{% if prestamos_activos %}
+	<a class="btn btn-default btn-sm" href="/prestamos_activos/page/1"> <span class="glyphicon glyphicon-fast-backward"></span> </a>
+	{% if prestamos_activos.has_previous %}
+		<a class="btn btn-default btn-sm" href="/prestamos_activos/page/{{ prestamos_activos.previous_page_number }}/"><span class="glyphicon glyphicon-chevron-left"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+	{% endif %}
+	{% if prestamos_activos.has_next %}
+		<a class="btn btn-default btn-sm" href="/prestamos_activos/page/{{ prestamos_activos.next_page_number }}/"><span class="glyphicon glyphicon-chevron-right"></span></a>
+	{% else %}
+		<a class="btn btn-default btn-sm" href="#"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+	{% endif %}
+		<a class="btn btn-default btn-sm" href="/prestamos_activos/page/{{prestamos_activos.paginator.num_pages}}"> <span class="glyphicon glyphicon-fast-forward"></span> </a>
+
+<br><br><br>
+	<h4>Página {{ prestamos_activos.number }} de {{ prestamos_activos.paginator.num_pages }}</h4>
+{% endif %}	
+
 </ul>
 {% endblock %}

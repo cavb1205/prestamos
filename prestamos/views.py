@@ -1,36 +1,69 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from prestamos.models import Persona, Equipos, Prestamo, Rol, Estado_Equipo
-from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm
+from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm, LoginForm
+from prestamos import signals
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
 from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save, m2m_changed
+from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.contrib.auth import login, logout, authenticate
+from django.contrib import auth 
+
 
 # vistas consultas
 def inicio(request):
 	inicio = Persona.objects.all()
 	return render_to_response('inicio.html',{'inicio':inicio})
 
-def usuarios(request):
+def usuarios(request,pagina):
 	usuarios = Persona.objects.all()
-	return render_to_response('usuarios.html',{'usuarios':usuarios})
+	paginator = Paginator(usuarios,3)
+	try:
+		page = int(pagina)
+	except:
+		page = 1
+	try:
+		list_usuarios = paginator.page(page)
+	except (EmptyPage, InvalidPage):
+		list_usuarios = paginator.page(paginator.num_pages)
+	return render_to_response('usuarios.html',{'usuarios':list_usuarios})
 
 def persona_individual(request,id_persona):
 	persona = Persona.objects.get(id=id_persona)
 	return render_to_response('persona_individual.html',{'persona':persona})
 
-def equipos(request):
+def equipos(request,pagina):
 	equipos = Equipos.objects.all()
-	return render_to_response('equipos.html',{'equipos':equipos})
+	paginator = Paginator(equipos,3)
+	try:
+		page = int(pagina)
+	except:
+		page = 1
+	try:
+		list_equipo = paginator.page(page)
+	except (EmptyPage, InvalidPage):
+		list_equipo = paginator.page(paginator.num_pages)
+
+	return render_to_response('equipos.html',{'equipos':list_equipo})
 
 def equipo_individual(request,id_equipo):
 	equipo = Equipos.objects.get(id=id_equipo)
 	return render_to_response('equipo_individual.html',{'equipo':equipo})
 
 
-def prestamos_activos(request):
+def prestamos_activos(request,pagina):
 	prestamos_activos = Prestamo.objects.filter(estado_prestamo=True).order_by('-id')
-	return render_to_response('prestamos_activos.html',{'prestamos_activos':prestamos_activos})
+	paginator = Paginator(prestamos_activos,3)
+	try:
+		page = int(pagina)
+	except:
+		page = 1
+	try:
+		list_prestamos = paginator.page(page)
+	except (EmptyPage, InvalidPage):
+		list_prestamos = paginator.page(paginator.num_pages) 
+	return render_to_response('prestamos_activos.html',{'prestamos_activos':list_prestamos})
 
 def prestamo_activo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
@@ -38,9 +71,19 @@ def prestamo_activo_individual(request,id_prestamo):
 	return render_to_response('activo_individual.html',{'prestamo':prestamo,'equipos':equipos})
 
 
-def prestamos_historial(request):
+def prestamos_historial(request,pagina):
 	prestamos = Prestamo.objects.all().order_by('-id')
-	return render_to_response('prestamos.html',{'prestamos':prestamos})
+	paginator = Paginator(prestamos,3)
+	try:
+		page = int(pagina)
+	except:
+		page = 1
+	try:
+		list_prestamos = paginator.page(page)
+	except (EmptyPage, InvalidPage):
+		list_prestamos = paginator.page(paginator.num_pages) 
+
+	return render_to_response('prestamos.html',{'prestamos':list_prestamos})
 
 def prestamo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
@@ -72,8 +115,6 @@ def edit_persona(request,id_persona):
 	
 
 	return render_to_response('edit_personaform.html',{'formulario':formulario},context_instance=RequestContext(request))				
-
-
 
 
 def add_equipo(request):
@@ -108,22 +149,25 @@ def add_prestamo(request):
 	
 	if request.method=='POST':
 		formulario = PrestamoForm(request.POST)
-		#equipo_afectado_id=request.POST.equipos_id
+		#equipo_afectado_id = request.POST.equipos
 		if formulario.is_valid():
 			formulario.save()
-		#	Equipos.update(pk=equipo_afectado_id,Estado_Equipo='Ocupado')
-			
-			return HttpResponseRedirect('/prestamos_activos')
+			#Equipos.update(pk=equipo_afectado_id,Estado_Equipo='Ocupado')
+#			for equipo in prestamo.equipos.all():
+#	            equipo.estado_equipo = '2'
+#	            equipo.save()
+	            
+		return HttpResponseRedirect('/prestamos_activos')
 
 	else:
 		formulario = PrestamoForm()
 	return render_to_response('prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
-	@receiver(post_save, sender = Prestamo)
-	def prestamo_save(sender, instance, **kwargs):
-		for equipo in instance.equipos:
-			equipo.estado_equipo = '2'
-			equipo.save()
+	#@receiver(post_save, sender = Prestamo)
+	#def prestamo_save(sender, instance, **kwargs):
+	#	for equipo in instance.equipos:
+	#		equipo.estado_equipo = '2'
+	#		equipo.save()
 
 
 def edit_prestamo(request,id_prestamo):
@@ -140,4 +184,27 @@ def edit_prestamo(request,id_prestamo):
 
 	return render_to_response('edit_prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))				
 	
+def login_view(request):
+	mensaje = ""
+	if request.user.is_authenticated():
+		return HttpResponseRedirect('/')
+	if request.method == "POST":
+		form = LoginForm(request.POST)
+		if form.is_valid():
+			username = form.cleaned_data['username']
+			password = form.cleaned_data['password']
+			usuario = authenticate(username=username,password=password)
+			if usuario:
+				if usuario.is_active:
+					login(request,usuario)
+					return HttpResponseRedirect('/')
+		else:
+			mensaje = "usuario y/o password incorrecto"
+	else:
+		form = LoginForm()
+	ctx = {'form':form,'mensaje':mensaje}
+	return render_to_response('login.html',ctx,context_instance=RequestContext(request))
 
+def logout_view(request):
+	logout(request)
+	return 	HttpResponseRedirect('/')
