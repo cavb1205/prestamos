@@ -9,6 +9,7 @@ from django.db.models.signals import post_save, m2m_changed
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import auth 
+from django.contrib.auth.decorators import login_required
 
 
 # vistas consultas
@@ -16,6 +17,7 @@ def inicio(request):
 	inicio = Persona.objects.all()
 	return render_to_response('inicio.html',{'inicio':inicio})
 
+@login_required(login_url='/login')
 def usuarios(request,pagina):
 	usuarios = Persona.objects.all()
 	paginator = Paginator(usuarios,3)
@@ -29,10 +31,12 @@ def usuarios(request,pagina):
 		list_usuarios = paginator.page(paginator.num_pages)
 	return render_to_response('usuarios.html',{'usuarios':list_usuarios})
 
+@login_required(login_url='/login')
 def persona_individual(request,id_persona):
 	persona = Persona.objects.get(id=id_persona)
 	return render_to_response('persona_individual.html',{'persona':persona})
 
+@login_required(login_url='/login')
 def equipos(request,pagina):
 	equipos = Equipos.objects.all()
 	paginator = Paginator(equipos,3)
@@ -47,11 +51,12 @@ def equipos(request,pagina):
 
 	return render_to_response('equipos.html',{'equipos':list_equipo})
 
+@login_required(login_url='/login')
 def equipo_individual(request,id_equipo):
 	equipo = Equipos.objects.get(id=id_equipo)
 	return render_to_response('equipo_individual.html',{'equipo':equipo})
 
-
+@login_required(login_url='/login')
 def prestamos_activos(request,pagina):
 	prestamos_activos = Prestamo.objects.filter(estado_prestamo=True).order_by('-id')
 	paginator = Paginator(prestamos_activos,3)
@@ -65,12 +70,15 @@ def prestamos_activos(request,pagina):
 		list_prestamos = paginator.page(paginator.num_pages) 
 	return render_to_response('prestamos_activos.html',{'prestamos_activos':list_prestamos})
 
+
+@login_required(login_url='/login')
 def prestamo_activo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
 	equipos = prestamo.equipos.all()
 	return render_to_response('activo_individual.html',{'prestamo':prestamo,'equipos':equipos})
 
 
+@login_required(login_url='/login')
 def prestamos_historial(request,pagina):
 	prestamos = Prestamo.objects.all().order_by('-id')
 	paginator = Paginator(prestamos,3)
@@ -85,23 +93,26 @@ def prestamos_historial(request,pagina):
 
 	return render_to_response('prestamos.html',{'prestamos':list_prestamos})
 
+@login_required(login_url='/login')
 def prestamo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
 	equipos = prestamo.equipos.all()
 	return render_to_response('prestamo_individual.html',{'prestamo':prestamo,'equipos':equipos})
 
 #vistas para formularios
+@login_required(login_url='/login')
 def add_persona(request):
 	if request.method=='POST':
 		formulario = PersonaForm(request.POST)
 		if formulario.is_valid():
 			formulario.save()
-			return HttpResponseRedirect('/usuarios')
+			return HttpResponseRedirect('/usuarios/page/1')
 	else:
 		formulario = PersonaForm()
 	return render_to_response('personaform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
 
+@login_required(login_url='/login')
 def edit_persona(request,id_persona):
 	persona = Persona.objects.get(id=id_persona)
 	
@@ -117,17 +128,19 @@ def edit_persona(request,id_persona):
 	return render_to_response('edit_personaform.html',{'formulario':formulario},context_instance=RequestContext(request))				
 
 
+@login_required(login_url='/login')
 def add_equipo(request):
 	if request.method=='POST':
 		formulario = EquiposForm(request.POST)
 		if formulario.is_valid():
 			formulario.save()
-			return HttpResponseRedirect('/equipos')
+			return HttpResponseRedirect('/equipos/page/1')
 	else:
 		formulario = EquiposForm()
 	return render_to_response('equiposform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
 
+@login_required(login_url='/login')
 def edit_equipo(request,id_equipo):
 	equipo = Equipos.objects.get(id=id_equipo)
 	
@@ -144,7 +157,7 @@ def edit_equipo(request,id_equipo):
 
 
 
-
+@login_required(login_url='/login')
 def add_prestamo(request):
 	
 	if request.method=='POST':
@@ -157,7 +170,7 @@ def add_prestamo(request):
 #	            equipo.estado_equipo = '2'
 #	            equipo.save()
 	            
-		return HttpResponseRedirect('/prestamos_activos')
+		return HttpResponseRedirect('/prestamos_activos/page/1')
 
 	else:
 		formulario = PrestamoForm()
@@ -170,6 +183,7 @@ def add_prestamo(request):
 	#		equipo.save()
 
 
+@login_required(login_url='/login')
 def edit_prestamo(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
 	equipos = prestamo.equipos.all()
