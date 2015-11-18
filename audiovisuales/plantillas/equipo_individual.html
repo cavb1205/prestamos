@@ -3,21 +3,22 @@
 
 
 {% block contenido %}
-
-<h1>Equipo No. {{equipo.id}}</h1><br>
-<p>Nombre Equipo: {{equipo.nombre}}</p>
-<p>Tipo: {{equipo.tipo_equipo}}</p>
-<p>Descripcion: {{equipo.descripcion}}</p>
-<p>Marca: {{equipo.marca}}</p>
-<p>Modelo: {{equipo.modelo}}</p>
-<p>Serial: {{equipo.serial}}</p>
-<p>Estado: {{equipo.estado_equipo}}</p>
-<p>Fecha Compra: {{equipo.fecha_compra}}</p>
-
+<div class="container-fluid">
+	<h1><strong>Equipo No.</strong> {{equipo.id}}</h1><br>
+	<h3><strong>Nombre Equipo:</strong> {{equipo.nombre}}</h3>
+	<h4><strong>Tipo:</strong> {{equipo.tipo_equipo}}</h4>
+	<h4><strong>Descripcion:</strong> {{equipo.descripcion}}</h4>
+	<h4><strong>Marca:</strong> {{equipo.marca}}</h4>
+	<h4><strong>Modelo:</strong> {{equipo.modelo}}</h4>
+	<h4><strong>Serial:</strong> {{equipo.serial}}</h4>
+	<h4><strong>Estado:</strong> {{equipo.estado_equipo}}</h4>
+	<h4><strong>Fecha Compra:</strong> {{equipo.fecha_compra}}</h4>
+</div>
 
 <br>
-<a href="/edit/equipos/{{equipo.id}}/">Editar</a> 
-<a href="javascript:window.history.go(-1);">Regresar a la lista</a>
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
+<a class="btn btn-default btn-xs" href="/edit/equipos/{{equipo.id}}/"><span class="glyphicon glyphicon-edit"></span>Editar</a> 
+
 
 
 {% endblock %}

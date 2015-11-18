@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, render
 from prestamos.models import Persona, Equipos, Prestamo, Rol, Estado_Equipo
 from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm, LoginForm
 from prestamos import signals
@@ -10,17 +10,26 @@ from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import auth 
 from django.contrib.auth.decorators import login_required
-
+import json
 
 # vistas consultas
 def inicio(request):
 	inicio = Persona.objects.all()
 	return render_to_response('inicio.html',{'inicio':inicio})
 
+#def buscar(requets):
+#	return render_to_response('buscar.html')
+#	 if request.is_ajax(): 
+#		usuario = Persona.objects.filter(primer_apellido__startswith= request.GET['nombre'] ).values('nombre', 'id')) 
+#	  	return HttpResponse( json.dumps(usuario), content_type='application/json' ) 
+#	 else:
+#	 	return HttpResponse("Solo Ajax")
+
 @login_required(login_url='/login')
 def usuarios(request,pagina):
-	usuarios = Persona.objects.all()
-	paginator = Paginator(usuarios,3)
+	usuarios = Persona.objects.all().order_by('primer_apellido')
+
+	paginator = Paginator(usuarios,10)
 	try:
 		page = int(pagina)
 	except:

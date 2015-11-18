@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block contenido %}
+<script type="text/javascript" src="/my_admin/jsi18n/"></script>
+<script type="text/javascript" src="/media/admin/js/core.js"></script>
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
 		{{formulario.as_p}}
-		{{form.media}}
+		
 		<p><input type='submit' value='Confirmar'/></p>
 	</form>
 {% endblock %}

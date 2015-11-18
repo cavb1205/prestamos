@@ -4,25 +4,20 @@
 
 {% block contenido %}
 
-<h1>Prestamo No. {{prestamo.id}}</h1><br>
-<p>Persona responsable: {{prestamo.id_persona}}</p>
-<p>Fecha Solicitud: {{prestamo.fecha_solicitud}}</p>
-<p>Fecha del servicio: {{prestamo.fecha_prestamo}}</p>
-<p>Fecha de entrega: {{prestamo.fecha_entrega}}</p>
-<p>Salon: {{prestamo.salon}}</p>
-<p>Equipos:</p>
-{% for equipo in prestamo.equipos.all %}
-	<li>{{equipo.nombre}}</li>
-{% endfor %}
-<p>Estado prestamo: {{prestamo.estado_prestamo}}</p>
-<p>Observaciones del prestamo: {{prestamo.observaciones}}</p>
-
-
-
-
-
-
-
+<div class="container-fluid">
+	<h1><strong>Prestamo No.</strong> {{prestamo.id}}</h1><br>
+	<h4><strong>Persona responsable:</strong> {{prestamo.id_persona|capfirst}}</h4>
+	<h4><strong>Fecha Solicitud:</strong> {{prestamo.fecha_solicitud}}</h4>
+	<h4><strong>Fecha del servicio:</strong> {{prestamo.fecha_prestamo}}</h4>
+	<h4><strong>Fecha de entrega:</strong> {{prestamo.fecha_entrega}}</h4>
+	<h4><strong>Salon:</strong> {{prestamo.salon}}</h4>
+	<h4><strong>Equipos:</strong></h4>
+	{% for equipo in prestamo.equipos.all %}
+		<li>{{equipo.nombre|capfirst}}</li>
+	{% endfor %}
+	<h4><strong>Estado prestamo:</strong> {{prestamo.estado_prestamo}}</h4>
+	<h4><strong>Observaciones del prestamo:</strong> {{prestamo.observaciones|capfirst}}</h4>
+</div>
 
 
 
@@ -32,8 +27,7 @@
 
 <br>
 <br>
-
-<a href="javascript:window.history.go(-1);">Regresar a la lista</a>
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
 {% endblock %}
 
 

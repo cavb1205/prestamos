@@ -3,22 +3,23 @@
 
 
 {% block contenido %}
-
-<h1>Documento: {{persona.documento}}</h1>
-<p>Código: {{persona.codigo}}</p>
-<p>Nombres: {{persona.primer_nombre}} {{persona.segundo_nombre}}</p>
-<p>Apellidos: {{persona.primer_apellido}}{{persona.segundo_apellido}}</p>
-<p>Email: {{persona.email}}</p>
-<p>Celular: {{persona.celular}}</p>
-<p>Programa: {{persona.programa}}</p>
-<p>Rol: {{persona.rol_id}}</p>
-<p>Estado de la persona: {{persona.estado}}</p>
-
+<div class="container-fluid">
+	<h1>Documento: {{persona.documento}}</h1>
+	<h3><strong>Código:</strong>	{{persona.codigo}}</h3>
+	<h4><strong>Nombres:</strong>	{{persona.primer_nombre|capfirst}} {{persona.segundo_nombre|capfirst}}</h4>
+	<h4><strong>Apellidos:</strong>	{{persona.primer_apellido|capfirst}} {{persona.segundo_apellido|capfirst}}</h4>
+	<h4><strong>Email:</strong>		{{persona.email}}</h4>
+	<h4><strong>Celular:</strong>	{{persona.celular}}</h4>
+	<h4><strong>Programa:</strong>	{{persona.programa|capfirst}}</h4>
+	<h4><strong>Rol:</strong>		{{persona.rol_id|capfirst}}</h4>
+	<h4><strong>Estado de la persona:</strong>	{{persona.estado|capfirst}}</h4>
+</div>
 
 <br>
 
-<a href="javascript:window.history.go(-1);">Regresar a la lista</a>
+<a class="btn btn-default btn-xs" href="javascript:window.history.go(-1);"><span class="glyphicon glyphicon-list-alt"></span>Regresar a la lista</a>
 
-<a href="/edit/persona/{{persona.id}}">Editar Usuario</a>
+<a class="btn btn-default btn-xs" href="/edit/persona/{{persona.id}}"><span class="glyphicon glyphicon-edit"></span>Editar Usuario</a>
 
 {% endblock %}
+
