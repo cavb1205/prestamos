@@ -1,7 +1,32 @@
 {% extends 'base.html' %}
 {% block contenido %}
-<script type="text/javascript" src="/my_admin/jsi18n/"></script>
-<script type="text/javascript" src="/media/admin/js/core.js"></script>
+<meta charset="utf-8" />
+
+<link rel="stylesheet" href="/media/bootstrap-datetimepicker-master/css/bootstrap-datetimepicker.min.css">
+<script src="/media/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
+
+
+
+
+ 
+<script >
+$(function () {
+$("#fecha_prestamo").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>       
+<script >
+$(function () {
+$("#fecha_estimada_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>
+<script >
+$(function () {
+$("#fecha_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
+});
+</script>
+
+
+
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
 		{{formulario.as_p}}
 		

@@ -37,6 +37,6 @@ urlpatterns = [
     url(r'^edit/prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.edit_prestamo'),
     url(r'^login/$','prestamos.views.login_view'), 
     url(r'^logout/$','prestamos.views.logout_view'), 
-    url(r'^usuarios/buscar/$','prestamos.views.buscar'), 
+    #url(r'^usuarios/buscar/$','prestamos.views.buscar'), 
 
 ]

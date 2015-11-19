@@ -15,7 +15,7 @@
 	{% for equipo in prestamo.equipos.all %}
 		<li>{{equipo.nombre|capfirst}}</li>
 	{% endfor %}
-	<h4><strong>Estado prestamo:</strong> {{prestamo.estado_prestamo}}</h4>
+	<h4><strong>Estado prestamo:</strong> {{prestamo.get_estado_prestamo_display}}</h4>
 	<h4><strong>Observaciones del prestamo:</strong> {{prestamo.observaciones|capfirst}}</h4>
 </div>
 
