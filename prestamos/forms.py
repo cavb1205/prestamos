@@ -29,7 +29,7 @@ class PrestamoForm(forms.ModelForm):
   	model = Prestamo
   	fields = ('id_persona','fecha_prestamo','fecha_estimada_entrega','salon','equipos','estado_prestamo','fecha_entrega','observaciones')
   	widgets = {
-  		'estado_prestamo':forms.Select, 'fecha_prestamo':forms.DateTimeInput(attrs={'id':'fecha_prestamo'}),'fecha_estimada_entrega':forms.DateTimeInput(attrs={'id':'fecha_estimada_entrega'}) ,'fecha_entrega':forms.DateTimeInput(attrs={'id':'fecha_entrega'})
+  		'estado_prestamo':forms.Select,'observaciones':forms.Textarea(attrs={'class':'form-inline'}), 'fecha_prestamo':forms.DateTimeInput(attrs={'id':'fecha_prestamo'}),'fecha_estimada_entrega':forms.DateTimeInput(attrs={'id':'fecha_estimada_entrega'}) ,'fecha_entrega':forms.DateTimeInput(attrs={'id':'fecha_entrega'})
   	}
 #,
   def __init__(self, *args, **kwargs):

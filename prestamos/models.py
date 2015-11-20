@@ -1,5 +1,5 @@
 from django.db import models
-from django.dispatch.dispatcher import receiver
+from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db.models.signals import m2m_changed
 
@@ -90,9 +90,10 @@ class Prestamo(models.Model):
 		mostrar = "%s - %s - %s "%(self.fecha_solicitud, self.fecha_prestamo, self.fecha_entrega)
 		return mostrar
 
-	#@receiver(m2m_changed, sender=Prestamo.equipos.through)
+	#@receiver(post_save, sender=Prestamo)
 	#def prestamo_post_save(sender, instance, **kwargs):
 	#	if estado_prestamo == True:
+	#		print 'hola'
 	#		for equipo in instance.equipos:
 	#			equipo.estado_equipo = '2'
     #          	equipo.save()
