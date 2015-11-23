@@ -16,9 +16,12 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
+import autocomplete_light.shortcuts as al
+
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
+    url(r'autocomplete/', include('autocomplete_light.urls')),
     url(r'^admin/jsi18n', 'django.views.i18n.javascript_catalog'), 
     url(r'^$','prestamos.views.inicio'),
     url(r'^usuarios/page/(?P<pagina>.*)/$','prestamos.views.usuarios'),
@@ -36,7 +39,8 @@ urlpatterns = [
     url(r'^add_prestamo/$','prestamos.views.add_prestamo'),
     url(r'^edit/prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.edit_prestamo'),
     url(r'^login/$','prestamos.views.login_view'), 
-    url(r'^logout/$','prestamos.views.logout_view'), 
+    url(r'^logout/$','prestamos.views.logout_view'),
+    url(r'^auto/$','prestamos.views.lista_personas'), 
     #url(r'^usuarios/buscar/$','prestamos.views.buscar'), 
 
 ]
