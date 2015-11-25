@@ -23,6 +23,7 @@
 	  				<th>Segundo Apellido</th>
 	  				<th>Rol</th>
 	  				<th>Programa</th>
+	  				<th>Estado</th>
 
 	  			</tr>
 	  		</theader>
@@ -37,6 +38,7 @@
     				<td>{{dato.segundo_apellido|capfirst}}</td>
     				<td>{{dato.rol_id}}</td>
     				<td>{{dato.programa}}</td>
+    				<td>{{dato.get_estado_display}}</td>
     				<td><a class="btn btn-default btn-xs" href="/usuarios/{{dato.id}}"><span class="glyphicon glyphicon-search"></span>Ver</a></td>
     				<td><a class="btn btn-default btn-xs" href="/edit/persona/{{dato.id}}/"><span class="glyphicon glyphicon-edit"></span>Editar</a></td>
     			</tr>

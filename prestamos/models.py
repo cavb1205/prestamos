@@ -18,6 +18,8 @@ class Rol(models.Model):
 		mostrar = "%s "%(self.rol)
 		return mostrar
 
+
+BOOL_CHOICES = ((True, 'Activo'),(False, 'Inactivo'))
 class Persona(models.Model):
 	codigo = models.IntegerField(null=True, blank=True, unique=True,verbose_name='Codigo')
 	documento = models.IntegerField(unique=True,verbose_name='Documento')
@@ -29,7 +31,7 @@ class Persona(models.Model):
 	celular = models.CharField(max_length=13)
 	programa = models.ForeignKey(Programa, blank=True, null=True)
 	rol_id = models.ForeignKey(Rol,verbose_name='Rol')
-	estado = models.BooleanField(default=True)
+	estado = models.BooleanField(default=True,choices=BOOL_CHOICES)
  
 
 	def __unicode__(self):
@@ -90,14 +92,25 @@ class Prestamo(models.Model):
 		mostrar = "%s - %s - %s "%(self.fecha_solicitud, self.fecha_prestamo, self.fecha_entrega)
 		return mostrar
 
-	#@receiver(post_save, sender=Prestamo)
-	#def prestamo_post_save(sender, instance, **kwargs):
-	#	if estado_prestamo == True:
-	#		print 'hola'
-	#		for equipo in instance.equipos:
-	#			equipo.estado_equipo = '2'
-    #          	equipo.save()
+#senales cambio estado de equipos
+
+#@receiver(post_save, sender=Prestamo)
+def prestamo_post_save(sender, instance, **kwargs):
+	if instance.estado_prestamo == True:
+		print 'Estado es Activo'
+		for equipo in instance.equipos.all():
+			equipo.estado_equipo_id = '2'
+			equipo.save()
+			print equipo.estado_equipo	
+	else:
+		print 'el estado es FINALIZADO'
+		for equipo in instance.equipos.all():
+			equipo.estado_equipo_id = '1'
+			equipo.save()
+			print equipo.estado_equipo		
+
+
 	
-	#m2m_changed.connect(prestamo_post_save, sender=Prestamo.equipos.through)
+m2m_changed.connect(prestamo_post_save, sender=Prestamo.equipos.through)
 
 

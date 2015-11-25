@@ -51,23 +51,16 @@ def lista_personas(request):
         for drug in drugs:
             drug_json = {}
             drug_json['id'] = drug.id
-            drug_json['label'] = drug.documento 
+            drug_json['label'] = str(drug.documento)+' ' + drug.primer_apellido + ' ' + drug.segundo_apellido + ' ' + drug.primer_nombre
             drug_json['value'] = drug.id
             results.append(drug_json)
         data = json.dumps(results)
-        print data
+        
     else:
         data = 'fail'
     mimetype = 'application/json'
     return HttpResponse(data, mimetype)
 
-#def lista_personas(request):
-#	search_qs = Persona.objects.filter(primer_apellido__startswith=request.REQUEST['search'])
-#    results = []
-#    for r in search_qs:
-#        results.append(r.primer_apellido)
-#    resp = request.REQUEST['callback'] + '(' + simplejson.dumps(result) + ');'
-#    return HttpResponse(resp, content_type='application/json')
 
 
 @login_required(login_url='/login')
