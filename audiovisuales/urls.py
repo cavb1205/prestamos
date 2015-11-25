@@ -38,6 +38,7 @@ urlpatterns = [
     url(r'^prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_activo_individual'),
     url(r'^add_prestamo/$','prestamos.views.add_prestamo'),
     url(r'^edit/prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.edit_prestamo'),
+    url(r'^close/prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.close_prestamo'),
     url(r'^login/$','prestamos.views.login_view'), 
     url(r'^logout/$','prestamos.views.logout_view'),
     url(r'^auto/$','prestamos.views.lista_personas'), 

@@ -94,7 +94,6 @@ class Prestamo(models.Model):
 
 #senales cambio estado de equipos
 
-#@receiver(post_save, sender=Prestamo)
 def prestamo_post_save(sender, instance, **kwargs):
 	if instance.estado_prestamo == True:
 		print 'Estado es Activo'

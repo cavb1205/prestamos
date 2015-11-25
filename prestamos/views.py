@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
 from prestamos.models import Persona, Equipos, Prestamo, Rol, Estado_Equipo
-from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm, LoginForm
+from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm, LoginForm, CloseForm
 from prestamos import signals
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
@@ -194,13 +194,10 @@ def add_prestamo(request):
 	
 	if request.method=='POST':
 		formulario = PrestamoForm(request.POST)
-		#equipo_afectado_id = request.POST.equipos
+		
 		if formulario.is_valid():
 			formulario.save()
-			#Equipos.update(pk=equipo_afectado_id,Estado_Equipo='Ocupado')
-#			for equipo in prestamo.equipos.all():
-#	            equipo.estado_equipo = '2'
-#	            equipo.save()
+			
 	            
 		return HttpResponseRedirect('/prestamos_activos/page/1')
 
@@ -208,11 +205,7 @@ def add_prestamo(request):
 		formulario = PrestamoForm()
 	return render_to_response('prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))
 
-	#@receiver(post_save, sender = Prestamo)
-	#def prestamo_save(sender, instance, **kwargs):
-	#	for equipo in instance.equipos:
-	#		equipo.estado_equipo = '2'
-	#		equipo.save()
+	
 
 
 @login_required(login_url='/login')
@@ -229,6 +222,21 @@ def edit_prestamo(request,id_prestamo):
 	
 
 	return render_to_response('edit_prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))				
+
+def close_prestamo(request,id_prestamo):
+	prestamo = Prestamo.objects.get(id=id_prestamo)
+	equipos = prestamo.equipos.all()
+	if request.method == 'POST':
+		formulario = CloseForm(request.POST,instance=prestamo)
+		if formulario.is_valid():
+			formulario.save()
+			return HttpResponseRedirect('/prestamos_activos/%s/'%prestamo.id)
+	else:
+		formulario = CloseForm(instance=prestamo)
+	
+
+	return render_to_response('close_prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))				
+
 	
 def login_view(request):
 	mensaje = ""
