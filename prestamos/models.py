@@ -96,17 +96,17 @@ class Prestamo(models.Model):
 
 def prestamo_post_save(sender, instance, **kwargs):
 	if instance.estado_prestamo == True:
-		print 'Estado es Activo'
+		
 		for equipo in instance.equipos.all():
 			equipo.estado_equipo_id = '2'
 			equipo.save()
-			print equipo.estado_equipo	
+				
 	else:
-		print 'el estado es FINALIZADO'
+		
 		for equipo in instance.equipos.all():
 			equipo.estado_equipo_id = '1'
 			equipo.save()
-			print equipo.estado_equipo		
+			
 
 
 	

@@ -45,6 +45,8 @@ class PrestamoForm(forms.ModelForm):
 
 
 class CloseForm(forms.ModelForm):
+  prestamo=Prestamo.objects.all()
+  equipos=Equipos.objects.all()
   class Meta:
     model = Prestamo
   
@@ -57,5 +59,4 @@ class CloseForm(forms.ModelForm):
         
   equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.all(),widget=forms.CheckboxSelectMultiple)
   
-
 	

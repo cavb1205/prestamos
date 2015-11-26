@@ -6,15 +6,16 @@
 <script src="/media/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 
 
-
 <script >
 $(function () {
 $("#fecha_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
 });
 </script>
 
+
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
 		{{formulario.as_p}}
+				
 		<p><input type='submit' value='Confirmar'/></p>
 	</form>
 {% endblock %}

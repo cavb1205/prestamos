@@ -71,7 +71,7 @@ def persona_individual(request,id_persona):
 @login_required(login_url='/login')
 def equipos(request,pagina):
 	equipos = Equipos.objects.all()
-	paginator = Paginator(equipos,3)
+	paginator = Paginator(equipos,10)
 	try:
 		page = int(pagina)
 	except:
@@ -91,7 +91,7 @@ def equipo_individual(request,id_equipo):
 @login_required(login_url='/login')
 def prestamos_activos(request,pagina):
 	prestamos_activos = Prestamo.objects.filter(estado_prestamo=True).order_by('-id')
-	paginator = Paginator(prestamos_activos,3)
+	paginator = Paginator(prestamos_activos,10)
 	try:
 		page = int(pagina)
 	except:
@@ -113,7 +113,7 @@ def prestamo_activo_individual(request,id_prestamo):
 @login_required(login_url='/login')
 def prestamos_historial(request,pagina):
 	prestamos = Prestamo.objects.all().order_by('-id')
-	paginator = Paginator(prestamos,3)
+	paginator = Paginator(prestamos,10)
 	try:
 		page = int(pagina)
 	except:
@@ -226,6 +226,8 @@ def edit_prestamo(request,id_prestamo):
 def close_prestamo(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
 	equipos = prestamo.equipos.all()
+	print prestamo 
+
 	if request.method == 'POST':
 		formulario = CloseForm(request.POST,instance=prestamo)
 		if formulario.is_valid():
@@ -235,7 +237,7 @@ def close_prestamo(request,id_prestamo):
 		formulario = CloseForm(instance=prestamo)
 	
 
-	return render_to_response('close_prestamoform.html',{'formulario':formulario},context_instance=RequestContext(request))				
+	return render_to_response('close_prestamoform.html',{'formulario':formulario,'equipos':equipos},context_instance=RequestContext(request))				
 
 	
 def login_view(request):
