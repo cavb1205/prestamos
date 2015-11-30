@@ -8,8 +8,10 @@ from django.dispatch.dispatcher import receiver
 from django.db.models.signals import post_save, m2m_changed
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.models import User
 from django.contrib import auth 
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin import widgets
 import json
 #from django.utils import simplejson
 
@@ -124,6 +126,24 @@ def prestamos_historial(request,pagina):
 		list_prestamos = paginator.page(paginator.num_pages) 
 
 	return render_to_response('prestamos.html',{'prestamos':list_prestamos})
+
+@login_required(login_url='/login')
+def prestamos_informe(request):
+	prestamos = Prestamo.objects.all().order_by('-fecha_prestamo')
+	usuario = Persona.objects.all()
+	
+	return render_to_response('prestamos_informe.html',{'prestamos':prestamos})
+
+@login_required(login_url='/login')
+def pendientes_entrega(request):
+	prestamos = Prestamo.objects.filter(estado_prestamo=True).order_by('-fecha_estimada_entrega')
+	
+	
+	return render_to_response('pendientes_entrega.html',{'prestamos':prestamos})
+
+
+
+
 
 @login_required(login_url='/login')
 def prestamo_individual(request,id_prestamo):

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block titulo %}Equipos Audiovisuales{% endblock %}
+
+{% block encabezado %}
+	<h1>Historial de Prestamos</h1>
+{% endblock %}
+
+{% block contenido %}
+<ul>
+	<div class="table-responsive">
+	  	<table class="table">
+	  		<theader>
+	  			<tr>
+	  				<th>#</th>
+	  				<th>Usuario</th>
+	  				<th>Fecha Préstamo</th>
+	  				<th>Equipos</th>
+
+	  			</tr>
+	  		</theader>
+    	{% for dato in prestamos %}
+    		<tbody>
+    			<tr>
+    				<td>{{dato.id}}</td>
+    				<td>{{dato.id_persona}}</td>
+    				<td>{{dato.fecha_prestamo}}</td>
+    				{% for equipo in dato.equipos.all %}
+    				<td>{{equipo.nombre}}</td>
+    				{% endfor %}
+    				
+    				
+    			</tr>
+    		</tbody>
+			 
+		{% empty %}
+		<p>No hay prestamos</p>
+		{% endfor %}
+		</table>
+	</div>
+	
+</ul>
+{% endblock %}

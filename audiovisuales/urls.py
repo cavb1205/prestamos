@@ -41,7 +41,9 @@ urlpatterns = [
     url(r'^close/prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.close_prestamo'),
     url(r'^login/$','prestamos.views.login_view'), 
     url(r'^logout/$','prestamos.views.logout_view'),
-    url(r'^auto/$','prestamos.views.lista_personas'), 
+    url(r'^auto/$','prestamos.views.lista_personas'),
+    url(r'^informe/$','prestamos.views.prestamos_informe'),
+    url(r'^pendientes_entrega/$','prestamos.views.pendientes_entrega'),  
     #url(r'^usuarios/buscar/$','prestamos.views.buscar'), 
 
 ]

@@ -2,6 +2,8 @@ from django.db import models
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 from django.db.models.signals import m2m_changed
+from django.contrib.auth.models import User
+from django.contrib.admin import widgets
 
 # Create your models here.
 class Programa(models.Model):
@@ -35,7 +37,7 @@ class Persona(models.Model):
  
 
 	def __unicode__(self):
-		mostrar="%s - %s - %s - %s"%(self.primer_apellido,self.primer_nombre,self.documento, self.rol_id)
+		mostrar="%s - %s - %s - %s - %s"%(self.primer_apellido,self.primer_nombre,self.documento, self.rol_id, self.programa)
 		return mostrar
 
 class Salon(models.Model):
