@@ -136,12 +136,17 @@ def prestamos_informe(request):
 
 @login_required(login_url='/login')
 def pendientes_entrega(request):
-	prestamos = Prestamo.objects.filter(estado_prestamo=True).order_by('-fecha_estimada_entrega')
+	prestamos = Prestamo.objects.filter(estado_prestamo=True).order_by('fecha_estimada_entrega')
 	
 	
 	return render_to_response('pendientes_entrega.html',{'prestamos':prestamos})
 
-
+@login_required(login_url='/login')
+def reservas(request):
+	prestamos = Prestamo.objects.filter(estado_prestamo=True).order_by('fecha_prestamo')
+	
+	
+	return render_to_response('reservas.html',{'prestamos':prestamos})
 
 
 

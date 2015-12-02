@@ -43,7 +43,8 @@ urlpatterns = [
     url(r'^logout/$','prestamos.views.logout_view'),
     url(r'^auto/$','prestamos.views.lista_personas'),
     url(r'^informe/$','prestamos.views.prestamos_informe'),
-    url(r'^pendientes_entrega/$','prestamos.views.pendientes_entrega'),  
+    url(r'^pendientes_entrega/$','prestamos.views.pendientes_entrega'),
+    url(r'^reservas/$','prestamos.views.reservas'),  
     #url(r'^usuarios/buscar/$','prestamos.views.buscar'), 
 
 ]
