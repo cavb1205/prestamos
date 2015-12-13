@@ -6,6 +6,7 @@
 <script src="/media/bootstrap-datetimepicker-master/js/bootstrap-datetimepicker.min.js"></script>
 
 <link rel="stylesheet" href="/media/bootstrap/css/jquery-ui.css">
+<link rel="stylesheet" href="/media/bootstrap/css/general.css">
 
 <script src="/media/bootstrap/js/jquery-ui.js"></script>
 
@@ -37,11 +38,12 @@ $("#fecha_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
 });
 </script>
 
-
+<div id="contenido">
 
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
 		{{formulario.as_p}}
 		
 		<p><input type='submit' value='Confirmar'/></p>
 	</form>
+</div>
 {% endblock %}

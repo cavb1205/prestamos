@@ -14,8 +14,9 @@ $("#fecha_entrega").datetimepicker({format: 'dd/mm/yyyy hh:ii'});
 
 
 	<form id='formulario' method='post' enctype='multipart/form-data' action=''>{% csrf_token %}
+		<p><input type='submit' value='Confirmar'/></p>
 		{{formulario.as_p}}
 				
-		<p><input type='submit' value='Confirmar'/></p>
+	
 	</form>
 {% endblock %}

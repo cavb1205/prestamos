@@ -16,14 +16,15 @@ Including another URLconf
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
-import autocomplete_light.shortcuts as al
+#import autocomplete_light.shortcuts as al
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'autocomplete/', include('autocomplete_light.urls')),
+#    url(r'autocomplete/', include('autocomplete_light.urls')),
     url(r'^admin/jsi18n', 'django.views.i18n.javascript_catalog'), 
     url(r'^$','prestamos.views.inicio'),
+    url(r'^bienvenido/$','prestamos.views.bienvenido'),
     url(r'^usuarios/page/(?P<pagina>.*)/$','prestamos.views.usuarios'),
     url(r'^usuarios/(?P<id_persona>.*)/$','prestamos.views.persona_individual'),
     url(r'^equipos/page/(?P<pagina>.*)/$','prestamos.views.equipos'),
@@ -34,6 +35,7 @@ urlpatterns = [
     url(r'^edit/equipos/(?P<id_equipo>.*)/$','prestamos.views.edit_equipo'),
     url(r'^prestamos/page/(?P<pagina>.*)/$','prestamos.views.prestamos_historial'),
     url(r'^prestamos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_individual'),
+    url(r'^prestamo_finalizado/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_individual_finalizado'),
     url(r'^prestamos_activos/page/(?P<pagina>.*)/$','prestamos.views.prestamos_activos'),
     url(r'^prestamos_activos/(?P<id_prestamo>.*)/$','prestamos.views.prestamo_activo_individual'),
     url(r'^add_prestamo/$','prestamos.views.add_prestamo'),

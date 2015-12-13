@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response, get_object_or_404, render
 from prestamos.models import Persona, Equipos, Prestamo, Rol, Estado_Equipo
 from prestamos.forms import PersonaForm, EquiposForm, PrestamoForm, LoginForm, CloseForm
+from django.contrib.auth import authenticate, login as auth_login
 from prestamos import signals
 from django.template import RequestContext
 from django.http import HttpResponse, HttpResponseRedirect
@@ -9,7 +10,8 @@ from django.db.models.signals import post_save, m2m_changed
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
-from django.contrib import auth 
+from models import User
+#from django.contrib import auth 
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin import widgets
 import json
@@ -18,7 +20,11 @@ import json
 # vistas consultas
 def inicio(request):
 	inicio = Persona.objects.all()
-	return render_to_response('inicio.html',{'inicio':inicio})
+	return render_to_response('inicio.html',{'inicio':inicio},context_instance=RequestContext(request))
+
+
+def bienvenido(request):
+	return render_to_response('bienvenido.html',context_instance=RequestContext(request))
 
 #def buscar(requets):
 #	return render_to_response('buscar.html')
@@ -32,7 +38,7 @@ def inicio(request):
 def usuarios(request,pagina):
 	usuarios = Persona.objects.all().order_by('primer_apellido')
 
-	paginator = Paginator(usuarios,10)
+	paginator = Paginator(usuarios,30)
 	try:
 		page = int(pagina)
 	except:
@@ -41,7 +47,7 @@ def usuarios(request,pagina):
 		list_usuarios = paginator.page(page)
 	except (EmptyPage, InvalidPage):
 		list_usuarios = paginator.page(paginator.num_pages)
-	return render_to_response('usuarios.html',{'usuarios':list_usuarios})
+	return render_to_response('usuarios.html',{'usuarios':list_usuarios},context_instance=RequestContext(request))
 
 
 #funcion para auttoccompletar formulario prestamo
@@ -68,12 +74,12 @@ def lista_personas(request):
 @login_required(login_url='/login')
 def persona_individual(request,id_persona):
 	persona = Persona.objects.get(id=id_persona)
-	return render_to_response('persona_individual.html',{'persona':persona})
+	return render_to_response('persona_individual.html',{'persona':persona},context_instance=RequestContext(request))
 
 @login_required(login_url='/login')
 def equipos(request,pagina):
 	equipos = Equipos.objects.all()
-	paginator = Paginator(equipos,10)
+	paginator = Paginator(equipos,50)
 	try:
 		page = int(pagina)
 	except:
@@ -83,17 +89,17 @@ def equipos(request,pagina):
 	except (EmptyPage, InvalidPage):
 		list_equipo = paginator.page(paginator.num_pages)
 
-	return render_to_response('equipos.html',{'equipos':list_equipo})
+	return render_to_response('equipos.html',{'equipos':list_equipo},context_instance=RequestContext(request))
 
 @login_required(login_url='/login')
 def equipo_individual(request,id_equipo):
 	equipo = Equipos.objects.get(id=id_equipo)
-	return render_to_response('equipo_individual.html',{'equipo':equipo})
+	return render_to_response('equipo_individual.html',{'equipo':equipo},context_instance=RequestContext(request))
 
 @login_required(login_url='/login')
 def prestamos_activos(request,pagina):
 	prestamos_activos = Prestamo.objects.filter(estado_prestamo=True).order_by('-id')
-	paginator = Paginator(prestamos_activos,10)
+	paginator = Paginator(prestamos_activos,50)
 	try:
 		page = int(pagina)
 	except:
@@ -102,14 +108,14 @@ def prestamos_activos(request,pagina):
 		list_prestamos = paginator.page(page)
 	except (EmptyPage, InvalidPage):
 		list_prestamos = paginator.page(paginator.num_pages) 
-	return render_to_response('prestamos_activos.html',{'prestamos_activos':list_prestamos})
+	return render_to_response('prestamos_activos.html',{'prestamos_activos':list_prestamos},context_instance=RequestContext(request))
 
 
 @login_required(login_url='/login')
 def prestamo_activo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
 	equipos = prestamo.equipos.all()
-	return render_to_response('activo_individual.html',{'prestamo':prestamo,'equipos':equipos})
+	return render_to_response('activo_individual.html',{'prestamo':prestamo,'equipos':equipos},context_instance=RequestContext(request))
 
 
 @login_required(login_url='/login')
@@ -125,28 +131,28 @@ def prestamos_historial(request,pagina):
 	except (EmptyPage, InvalidPage):
 		list_prestamos = paginator.page(paginator.num_pages) 
 
-	return render_to_response('prestamos.html',{'prestamos':list_prestamos})
+	return render_to_response('prestamos.html',{'prestamos':list_prestamos},context_instance=RequestContext(request))
 
 @login_required(login_url='/login')
 def prestamos_informe(request):
 	prestamos = Prestamo.objects.all().order_by('-fecha_prestamo')
 	usuario = Persona.objects.all()
 	
-	return render_to_response('prestamos_informe.html',{'prestamos':prestamos})
+	return render_to_response('prestamos_informe.html',{'prestamos':prestamos},context_instance=RequestContext(request))
 
 @login_required(login_url='/login')
 def pendientes_entrega(request):
 	prestamos = Prestamo.objects.filter(estado_prestamo=True).order_by('fecha_estimada_entrega')
 	
 	
-	return render_to_response('pendientes_entrega.html',{'prestamos':prestamos})
+	return render_to_response('pendientes_entrega.html',{'prestamos':prestamos},context_instance=RequestContext(request))
 
 @login_required(login_url='/login')
 def reservas(request):
 	prestamos = Prestamo.objects.filter(estado_prestamo=True).order_by('fecha_prestamo')
 	
 	
-	return render_to_response('reservas.html',{'prestamos':prestamos})
+	return render_to_response('reservas.html',{'prestamos':prestamos},context_instance=RequestContext(request))
 
 
 
@@ -154,7 +160,16 @@ def reservas(request):
 def prestamo_individual(request,id_prestamo):
 	prestamo = Prestamo.objects.get(id=id_prestamo)
 	equipos = prestamo.equipos.all()
-	return render_to_response('prestamo_individual.html',{'prestamo':prestamo,'equipos':equipos})
+	return render_to_response('prestamo_individual.html',{'prestamo':prestamo,'equipos':equipos},context_instance=RequestContext(request))
+
+@login_required(login_url='/login')
+def prestamo_individual_finalizado(request,id_prestamo):
+        prestamo = Prestamo.objects.get(id=id_prestamo)
+        equipos = prestamo.equipos.all()
+        return render_to_response('finalizado_individual.html',{'prestamo':prestamo,'equipos':equipos},context_instance=RequestContext(request))
+
+
+
 
 #vistas para formularios
 @login_required(login_url='/login')
@@ -222,9 +237,8 @@ def add_prestamo(request):
 		
 		if formulario.is_valid():
 			formulario.save()
-			
-	            
-		return HttpResponseRedirect('/prestamos_activos/page/1')
+        
+			return HttpResponseRedirect('/prestamos_activos/page/1')
 
 	else:
 		formulario = PrestamoForm()
@@ -257,7 +271,7 @@ def close_prestamo(request,id_prestamo):
 		formulario = CloseForm(request.POST,instance=prestamo)
 		if formulario.is_valid():
 			formulario.save()
-			return HttpResponseRedirect('/prestamos_activos/%s/'%prestamo.id)
+			return HttpResponseRedirect('/prestamo_finalizado/%s/'%prestamo.id)
 	else:
 		formulario = CloseForm(instance=prestamo)
 	
@@ -278,7 +292,7 @@ def login_view(request):
 			if user is not None:
 				if user.is_active:
 					login(request,user)
-					return HttpResponseRedirect('/')
+					return HttpResponseRedirect('/bienvenido')
 				else:
 					mensaje = 'El usuario no se encuentra activo en el sistema'
 			else:

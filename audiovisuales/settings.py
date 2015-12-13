@@ -23,10 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'r&!-&i%o^zli4#9w+(py9ra@qd-_ek8ec_s3x^mvqnw^ts^suu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1','190.254.11.188','10.42.1.2','localhost']
 
+ADMIN_MEDIA_PREFIX = '/media/'
 
 # Application definition
 
@@ -38,7 +39,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'prestamos',
-    'autocomplete_light',
+#    'autocomplete_light',
     	
 )
 
@@ -88,7 +89,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
 	'NAME': 'prueba',
 	'USER': 'root',
-	'PASSWORD': 'c@m1lovaron',
+	'PASSWORD': 'ucc1b4gu3',
        ## 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
@@ -111,10 +112,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
 
-STATIC_URL = '/media/'
+STATIC_URL = 'http://localhost/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'media')
 STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(BASE_DIR,'audiovisuales/media'),
+    os.path.join(BASE_DIR,'media/bootstrap'),
 )

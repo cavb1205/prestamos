@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block titulo %}{% endblock %}
+
+
+{% block contenido %}
+<div class="container-fluid">
+	<h1><strong>Prestamo No.</strong> {{prestamo.id}}</h1><br>
+	<h4><strong>Persona responsable:</strong> {{prestamo.id_persona}}</h4>
+	<h4><strong>Fecha Solicitud:</strong> {{prestamo.fecha_solicitud}}</h4>
+	<h4><strong>Fecha del servicio:</strong> {{prestamo.fecha_prestamo}}</h4>
+	<h4><strong>Fecha estimada de entrega:</strong> {{prestamo.fecha_estimada_entrega}}</h4>
+	<h4><strong>Salon:</strong> {{prestamo.salon}}</h4>
+	<h4><strong>Equipos:</strong></h4>
+	{% for equipo in prestamo.equipos.all %}
+		<li>{{equipo.nombre|capfirst}}</li>
+	{% endfor %}
+	<h4><strong>Estado prestamo:</strong> {{prestamo.get_estado_prestamo_display}}</h4>
+	<h4><strong>Fecha de entrega:</strong> {{prestamo.fecha_entrega}}</h4>
+	<h4><strong>Observaciones del prestamo:</strong> {{prestamo.observaciones}}</h4>
+</div>
+
+
+<br>
+
+ 
+ 
+
+
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+

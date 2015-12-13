@@ -68,6 +68,7 @@ class Equipos(models.Model):
 	marca = models.CharField(max_length=30)
 	modelo = models.CharField(max_length=30)
 	serial = models.CharField(max_length=30, unique=True)
+	numero_inventario = models.CharField(max_length=30, unique=True)
 	estado_equipo = models.ForeignKey(Estado_Equipo)
 	fecha_compra = models.DateField(null=True, blank=True, auto_now=False)
 
