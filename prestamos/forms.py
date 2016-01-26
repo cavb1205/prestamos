@@ -28,10 +28,11 @@ class PrestamoForm(forms.ModelForm):
   class Meta:
   	model = Prestamo
   
-  	fields = ('id_persona','fecha_prestamo','fecha_estimada_entrega','salon','equipos')
+  	fields = ('id_persona','fecha_prestamo','fecha_estimada_entrega','salon','equipos','observaciones')
   	widgets = {
  	
-      'estado_prestamo':forms.Select,'observaciones':forms.Textarea(attrs={'class':'form-inline'}), 'fecha_prestamo':forms.DateTimeInput(attrs={'id':'fecha_prestamo'}),'fecha_estimada_entrega':forms.DateTimeInput(attrs={'id':'fecha_estimada_entrega'}) ,'fecha_entrega':forms.DateTimeInput(attrs={'id':'fecha_entrega'}),'id_persona' : forms.TextInput(attrs={'id':'tags'})
+      'estado_prestamo':forms.Select,'observaciones':forms.Textarea(attrs={'class':'form-inline'}),
+ 'fecha_prestamo':forms.DateTimeInput(attrs={'id':'fecha_prestamo'}),'fecha_estimada_entrega':forms.DateTimeInput(attrs={'id':'fecha_estimada_entrega'}) ,'fecha_entrega':forms.DateTimeInput(attrs={'id':'fecha_entrega'}),'id_persona' : forms.TextInput(attrs={'id':'tags'})
   	}
 
 #  def __init__(self, *args, **kwargs):
@@ -41,22 +42,22 @@ class PrestamoForm(forms.ModelForm):
        
 
         
-  equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1'),widget=forms.CheckboxSelectMultiple)
+  equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.filter(estado_equipo='1').order_by('tipo_equipo'),widget=forms.CheckboxSelectMultiple(attrs={'id': 'equipos'}))
 
 
 class CloseForm(forms.ModelForm):
-  prestamo=Prestamo.objects.all()
-  equipos=Equipos.objects.all()
+#  prestamo=Prestamo.objects.all()
+#  equipos=Equipos.objects.all()
   class Meta:
     model = Prestamo
   
     fields = ('estado_prestamo','fecha_entrega','observaciones','equipos')
     widgets = {
   
-      'estado_prestamo':forms.Select,'observaciones':forms.Textarea(attrs={'class':'form-inline'}),'fecha_entrega':forms.DateTimeInput(attrs={'id':'fecha_entrega'}) 
+      'estado_prestamo':forms.Select,'observaciones':forms.Textarea(attrs={'class':'form-inline'}),'fecha_entrega':forms.DateTimeInput(attrs={'id':'fecha_entrega'})#, 'equipos':forms.HiddenInput()
     }
   
         
-  equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.all(),widget=forms.CheckboxSelectMultiple)
+ # equipos = forms.ModelMultipleChoiceField(queryset=Equipos.objects.all(),widget=forms.CheckboxSelectMultiple)
   
 	

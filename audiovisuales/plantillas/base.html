@@ -20,7 +20,7 @@
 		<div class="container-fluid">
 			{% if user.is_authenticated %}
             <p class="navbar-text pull-right">
-              Logged in as {{ user.username }}
+              Usuario: {{ user.username }} <a href='http://190.254.11.188/admin/password_change/'>Cambiar Contrasena</a>
             </p>
             {% endif %}
             
@@ -44,9 +44,11 @@
 					<li><a href="/pendientes_entrega">Pendientes Entrega</a></li>
 					<li><a href="/reservas">Reservas</a></li>
 					<li><a href="/equipos/page/1">Equipos</a></li>
-					<li><a href="/login">Login</a></li>
+					{% if user.is_authenticated %}
 					<li><a href="/logout">Logout</a></li>
-					
+					{% else %}
+					<li><a href="/login">Login</a></li>
+					{% endif %}
 						
 					
 				</ul>

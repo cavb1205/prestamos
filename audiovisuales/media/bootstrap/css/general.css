@@ -2,3 +2,9 @@
 	width: 80%;
 	height: 400px;
 	}
+
+
+#Label1 ul li{ 
+float: left; 
+width: 45%; 
+}

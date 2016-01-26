@@ -18,6 +18,7 @@ import json
 #from django.utils import simplejson
 
 # vistas consultas
+@login_required(login_url='/login')
 def inicio(request):
 	inicio = Persona.objects.all()
 	return render_to_response('inicio.html',{'inicio':inicio},context_instance=RequestContext(request))
@@ -38,7 +39,7 @@ def bienvenido(request):
 def usuarios(request,pagina):
 	usuarios = Persona.objects.all().order_by('primer_apellido')
 
-	paginator = Paginator(usuarios,30)
+	paginator = Paginator(usuarios,100)
 	try:
 		page = int(pagina)
 	except:
@@ -48,6 +49,17 @@ def usuarios(request,pagina):
 	except (EmptyPage, InvalidPage):
 		list_usuarios = paginator.page(paginator.num_pages)
 	return render_to_response('usuarios.html',{'usuarios':list_usuarios},context_instance=RequestContext(request))
+
+
+@login_required(login_url='/login')
+def usuariostotal(request):
+	usuarios = Persona.objects.all().order_by('primer_apellido')
+	return render_to_response('usuariostotal.html',{'usuarios':usuarios},context_instance=RequestContext(request))
+
+	
+
+
+
 
 
 #funcion para auttoccompletar formulario prestamo
@@ -78,8 +90,8 @@ def persona_individual(request,id_persona):
 
 @login_required(login_url='/login')
 def equipos(request,pagina):
-	equipos = Equipos.objects.all()
-	paginator = Paginator(equipos,50)
+	equipos = Equipos.objects.all().order_by('tipo_equipo')
+	paginator = Paginator(equipos,100)
 	try:
 		page = int(pagina)
 	except:
@@ -121,7 +133,7 @@ def prestamo_activo_individual(request,id_prestamo):
 @login_required(login_url='/login')
 def prestamos_historial(request,pagina):
 	prestamos = Prestamo.objects.all().order_by('-id')
-	paginator = Paginator(prestamos,10)
+	paginator = Paginator(prestamos,50)
 	try:
 		page = int(pagina)
 	except:

@@ -1,0 +1,6 @@
+#equipos ul{ width:50%;	 margin-bottom:30px; overflow:hidden;  	 border-top:1px solid #ccc;  }	li{ line-height:1.5em; 	 border-bottom:1px solid #ccc; 	 float:left; display:inline;	 width:25%;  }}
+
+.dos_columnas li { width:50%;}
+.tres_columnas li { width:33.333%; }
+.cuatro_columnas li { width:25%; }
+.cinco_columnas li { width:16.666%; }

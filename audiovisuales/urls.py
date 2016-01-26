@@ -26,6 +26,7 @@ urlpatterns = [
     url(r'^$','prestamos.views.inicio'),
     url(r'^bienvenido/$','prestamos.views.bienvenido'),
     url(r'^usuarios/page/(?P<pagina>.*)/$','prestamos.views.usuarios'),
+    url(r'^usuariostotal/$','prestamos.views.usuariostotal'),
     url(r'^usuarios/(?P<id_persona>.*)/$','prestamos.views.persona_individual'),
     url(r'^equipos/page/(?P<pagina>.*)/$','prestamos.views.equipos'),
     url(r'^equipos/(?P<id_equipo>.*)/$','prestamos.views.equipo_individual'),
